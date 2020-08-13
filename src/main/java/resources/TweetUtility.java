@@ -16,6 +16,7 @@ public class TweetUtility {
 
     Twitter twitter;
 
+
     public TweetUtility(){
         String consumerKey, consumerSecret, accessToken, accessTokenSecret;
         consumerKey = System.getProperty("ConsumerKey");
@@ -35,6 +36,15 @@ public class TweetUtility {
 
     }
 
+    public TweetUtility(Twitter twitter){
+        this.twitter = twitter;
+    }
+
+    public int add(int a, int b){
+        return a+b;
+    }
+
+
     @GET
     @Path("/timeline")
     @Produces("application/json")
@@ -43,7 +53,7 @@ public class TweetUtility {
             List<Status> statuses = this.twitter.getHomeTimeline();
             return Response.status(Response.Status.OK).entity(statuses).build();
         }
-        catch (RuntimeException ex) {
+        catch (Exception ex) {
             return Response.serverError().entity(ex.getMessage()).build();
         }
     }
@@ -58,7 +68,7 @@ public class TweetUtility {
             this.twitter.updateStatus(tweet);
             return Response.status(Response.Status.OK).build();
         }
-        catch (RuntimeException ex) {
+        catch (Exception ex) {
             return Response.serverError().entity(ex.getMessage()).build();
         }
     }

@@ -5,7 +5,7 @@ import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Configuration;
 import com.yammer.dropwizard.config.Environment;
 import resources.TweetUtility;
-import twitter4j.TwitterException;
+//import twitter4j.TwitterException;
 
 
 public class App extends Service<Configuration> {
