@@ -1,16 +1,11 @@
 package com.resources;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import resources.TweetUtility;
 import twitter4j.*;
 
@@ -59,6 +54,13 @@ class TweetUtilityTest {
         when(twitter.updateStatus("Test tweet")).thenReturn(s);
         assertEquals(200, tweetUtility.postTweet("Test tweet").getStatus());
         verify(twitter).updateStatus("Test tweet");
+    }
+
+    @Test
+    @DisplayName("testPostTweet")
+    public void testPostTweetWithEmptyString() throws TwitterException {
+        when(twitter.updateStatus("")).thenReturn(s);
+        assertEquals(500, tweetUtility.postTweet("").getStatus());
     }
 
     @Test

@@ -17,33 +17,9 @@ public class TweetUtility {
     Twitter twitter;
 
 
-    public TweetUtility(){
-        String consumerKey, consumerSecret, accessToken, accessTokenSecret;
-        consumerKey = System.getProperty("ConsumerKey");
-        consumerSecret = System.getProperty("ConsumerSecret");
-        accessToken = System.getProperty("AccessToken");
-        accessTokenSecret = System.getProperty("AccessTokenSecret");
-
-
-        ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true)
-                .setOAuthConsumerKey(consumerKey)
-                .setOAuthConsumerSecret(consumerSecret)
-                .setOAuthAccessToken(accessToken)
-                .setOAuthAccessTokenSecret(accessTokenSecret);
-        TwitterFactory tf = new TwitterFactory(cb.build());
-        this.twitter = tf.getInstance();
-
-    }
-
     public TweetUtility(Twitter twitter){
         this.twitter = twitter;
     }
-
-    public int add(int a, int b){
-        return a+b;
-    }
-
 
     @GET
     @Path("/timeline")
@@ -61,7 +37,7 @@ public class TweetUtility {
     @POST
     @Path("/tweet/{tweet}")
     public Response postTweet(@PathParam("tweet") String tweet) throws TwitterException {
-        if(tweet == null) {
+        if(tweet == "") {
             return Response.serverError().entity("No tweet provided").build();
         }
         try {
