@@ -1,8 +1,10 @@
 Twitter Dev App
 
+To run this app please add your twitter keys/secrets etc in config.yml file
+
 Use the following command to run this app
 
-`java -jar -DConsumerKey=<twitterConsumerKey> -DConsumerSecret=<twitterConsumerSecret> -DAccessToken=<twitterAccessToken> -DAccessTokenSecret=<twitterAccessTokenSecret> TwitterApp.jar 
+`java -jar TwitterApp.jar 
 `
 
 To run the test cases use the following command:

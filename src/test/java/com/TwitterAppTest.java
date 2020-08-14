@@ -7,4 +7,5 @@ import org.junit.runner.RunWith;
 @RunWith(JUnitPlatform.class)
 @SelectPackages("com.resources")
 public class TwitterAppTest {
+       
 }

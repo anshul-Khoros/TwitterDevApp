@@ -2,7 +2,6 @@ package com;
 
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
-import com.yammer.dropwizard.config.Configuration;
 import com.yammer.dropwizard.config.Environment;
 import resources.TweetUtility;
 import twitter4j.Twitter;
@@ -10,29 +9,29 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 
-public class App extends Service<Configuration> {
+public class App extends Service<AppConfiguration> {
     public static void main(String[] args) throws Exception {
         new App().run(args);
     }
 
 
     @Override
-    public void initialize(Bootstrap<Configuration> bootstrap) {
+    public void initialize(Bootstrap<AppConfiguration> bootstrap) {
 
     }
 
     @Override
-    public void run(Configuration configuration, Environment environment) throws Exception {
-        Twitter twitter = getTwitterInstance();
+    public void run(AppConfiguration configuration, Environment environment) throws Exception {
+        Twitter twitter = getTwitterInstance(configuration);
         environment.addResource(new TweetUtility(twitter));
     }
 
-    public Twitter getTwitterInstance(){
+    public Twitter getTwitterInstance(AppConfiguration configuration){
         String consumerKey, consumerSecret, accessToken, accessTokenSecret;
-        consumerKey = System.getProperty("ConsumerKey");
-        consumerSecret = System.getProperty("ConsumerSecret");
-        accessToken = System.getProperty("AccessToken");
-        accessTokenSecret = System.getProperty("AccessTokenSecret");
+        consumerKey = configuration.getConsumerKey();
+        consumerSecret = configuration.getConsumerSecret();
+        accessToken = configuration.getAccessToken();
+        accessTokenSecret = configuration.getAccessTokenSecret();
 
 
         ConfigurationBuilder cb = new ConfigurationBuilder();
