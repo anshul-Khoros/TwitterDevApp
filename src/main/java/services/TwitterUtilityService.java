@@ -5,12 +5,13 @@ import models.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import resources.TweetUtility;
-import twitter4j.Status;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
+import twitter4j.*;
+
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class TwitterUtilityService {
 
@@ -51,6 +52,37 @@ public class TwitterUtilityService {
         try {
             twitter.updateStatus(tweet);
             return Response.status(Response.Status.OK).build();
+        }
+        catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+            return Response.serverError().entity(ex.getMessage()).build();
+        }
+    }
+
+    public Response getTimelineWithFilter(String keyword, Twitter twitter) {
+
+        try {
+            List<Status> statuses = twitter.getHomeTimeline();
+            List<TwitterPost> twitterPosts = new ArrayList<>();
+            logger.info("Fetched timeline form twitter");
+            for (Status status : statuses) {
+                TwitterPost obj = new TwitterPost();
+                User userObj = new User();
+                obj.setMessage(status.getText());
+                obj.setCreatedAt(status.getCreatedAt());
+
+                userObj.setName(status.getUser().getName());
+                userObj.setProfileImageUrl(status.getUser().getProfileImageURL());
+                userObj.setTwitterHandle(status.getUser().getId());
+
+                obj.setUser(userObj);
+                twitterPosts.add(obj);
+            }
+            Stream<TwitterPost> twitterPostStream = twitterPosts.stream();
+            Stream<TwitterPost> twitterPostStreamWithFilter = twitterPostStream.filter(tweet -> tweet.getMessage().contains(keyword));
+
+
+            return Response.status(Response.Status.OK).entity(twitterPostStreamWithFilter.toArray()).build();
         }
         catch (Exception ex) {
             logger.error(ex.getMessage(), ex);

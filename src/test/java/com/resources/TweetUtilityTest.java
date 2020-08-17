@@ -22,6 +22,8 @@ class TweetUtilityTest {
     Status s;
     @Mock
     Twitter twitter;
+
+
     @InjectMocks
     TweetUtility tweetUtility = new TweetUtility(twitter);
 

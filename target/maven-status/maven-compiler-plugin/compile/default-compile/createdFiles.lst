@@ -1,2 +1,6 @@
-com/App.class
+models/User.class
 resources/TweetUtility.class
+services/TwitterUtilityService.class
+models/TwitterPost.class
+com/AppConfiguration.class
+com/App.class

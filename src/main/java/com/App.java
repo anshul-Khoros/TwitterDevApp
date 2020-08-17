@@ -3,8 +3,6 @@ package com;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import resources.TweetUtility;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
@@ -26,6 +24,8 @@ public class App extends Service<AppConfiguration> {
         Twitter twitter = getTwitterInstance(configuration);
         environment.addResource(new TweetUtility(twitter));
     }
+
+
 
     public Twitter getTwitterInstance(AppConfiguration configuration){
         String consumerKey, consumerSecret, accessToken, accessTokenSecret;

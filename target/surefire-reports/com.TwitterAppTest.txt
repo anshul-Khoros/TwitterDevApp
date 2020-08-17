@@ -1,4 +1,7 @@
 -------------------------------------------------------------------------------
 Test set: com.TwitterAppTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.407 s - in com.TwitterAppTest
+Tests run: 5, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.622 s <<< FAILURE! - in com.TwitterAppTest
+TweetUtilityTest.testTimeline  Time elapsed: 0.041 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <200> but was: <500>
+
