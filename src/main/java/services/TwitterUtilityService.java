@@ -1,5 +1,7 @@
 package services;
 
+import models.TwitterPost;
+import models.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import resources.TweetUtility;
@@ -7,6 +9,7 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TwitterUtilityService {
@@ -17,8 +20,22 @@ public class TwitterUtilityService {
     public Response getTimelineService(Twitter twitter) throws TwitterException {
         try {
             List<Status> statuses = twitter.getHomeTimeline();
+            List<TwitterPost> twitterPosts = new ArrayList<>();
             logger.info("Fetched timeline form twitter");
-            return Response.status(Response.Status.OK).entity(statuses).build();
+            for (Status status : statuses) {
+                TwitterPost obj = new TwitterPost();
+                User userObj = new User();
+                obj.setMessage(status.getText());
+                obj.setCreatedAt(status.getCreatedAt());
+
+                userObj.setName(status.getUser().getName());
+                userObj.setProfileImageUrl(status.getUser().getProfileImageURL());
+                userObj.setTwitterHandle(status.getUser().getId());
+
+                obj.setUser(userObj);
+                twitterPosts.add(obj);
+            }
+            return Response.status(Response.Status.OK).entity(twitterPosts).build();
         }
         catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
