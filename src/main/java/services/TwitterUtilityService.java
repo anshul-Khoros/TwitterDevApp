@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+
 public class TwitterUtilityService {
 
     Logger logger = LoggerFactory.getLogger(TweetUtility.class);
@@ -59,7 +60,7 @@ public class TwitterUtilityService {
         }
     }
 
-    public Response getTimelineWithFilter(String keyword, Twitter twitter) {
+    public Response getTimelineWithFilterService(String keyword, Twitter twitter) {
 
         try {
             List<Status> statuses = twitter.getHomeTimeline();

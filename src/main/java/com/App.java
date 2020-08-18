@@ -3,7 +3,10 @@ package com;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import resources.TweetUtility;
+import resources.TweetUtilityI;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
@@ -21,8 +24,11 @@ public class App extends Service<AppConfiguration> {
 
     @Override
     public void run(AppConfiguration configuration, Environment environment) throws Exception {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
         Twitter twitter = getTwitterInstance(configuration);
-        environment.addResource(new TweetUtility(twitter));
+        TweetUtilityI tweetUtility = (TweetUtilityI) applicationContext.getBean("tweetUtility");
+        tweetUtility.setTwitter(twitter);
+        environment.addResource(tweetUtility);
     }
 
 

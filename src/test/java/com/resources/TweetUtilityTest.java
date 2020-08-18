@@ -25,7 +25,7 @@ class TweetUtilityTest {
 
 
     @InjectMocks
-    TweetUtility tweetUtility = new TweetUtility(twitter);
+    TweetUtility tweetUtility = new TweetUtility();
 
 
     @BeforeEach
@@ -37,6 +37,7 @@ class TweetUtilityTest {
     @Test
     @DisplayName("testTimeline")
     public void testTimeline() throws TwitterException {
+        tweetUtility.setTwitter(twitter);
         when(twitter.getHomeTimeline()).thenReturn(status);
         assertEquals(200, tweetUtility.showTimeline().getStatus());
         verify(twitter).getHomeTimeline();
@@ -45,6 +46,7 @@ class TweetUtilityTest {
     @Test
     @DisplayName("testTimelineWhenTwitterApiDown")
     public void testTimelineWhenTwitterApiDown() throws TwitterException {
+        tweetUtility.setTwitter(twitter);
         when(twitter.getHomeTimeline()).thenThrow(new TwitterException("Service down"));
         assertEquals(500, tweetUtility.showTimeline().getStatus());
         verify(twitter).getHomeTimeline();
@@ -53,6 +55,7 @@ class TweetUtilityTest {
     @Test
     @DisplayName("testPostTweet")
     public void testPostTweet() throws TwitterException {
+        tweetUtility.setTwitter(twitter);
         when(twitter.updateStatus("Test tweet")).thenReturn(s);
         assertEquals(200, tweetUtility.postTweet("Test tweet").getStatus());
         verify(twitter).updateStatus("Test tweet");
@@ -61,6 +64,7 @@ class TweetUtilityTest {
     @Test
     @DisplayName("testPostTweet")
     public void testPostTweetWithEmptyString() throws TwitterException {
+        tweetUtility.setTwitter(twitter);
         when(twitter.updateStatus("")).thenReturn(s);
         assertEquals(500, tweetUtility.postTweet("").getStatus());
     }
@@ -68,6 +72,7 @@ class TweetUtilityTest {
     @Test
     @DisplayName("testPostTweetWhenTwitterApiDown")
     public void testPostTweetWhenTwitterApiDown() throws TwitterException {
+        tweetUtility.setTwitter(twitter);
         when(twitter.updateStatus("Test tweet")).thenThrow(new TwitterException("Service Down"));
         assertEquals(500, tweetUtility.postTweet("Test tweet").getStatus());
         verify(twitter).updateStatus("Test tweet");

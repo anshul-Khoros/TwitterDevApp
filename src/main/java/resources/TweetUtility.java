@@ -10,21 +10,24 @@ import javax.ws.rs.core.Response;
 
 
 @Path("/api/1.0/twitter")
-public class TweetUtility {
+public class TweetUtility implements TweetUtilityI {
 
     Twitter twitter;
     TwitterUtilityService twitterService;
 
-    public TweetUtility(Twitter twitter){
-        this.twitter = twitter;
+    public TweetUtility(){
         this.twitterService = new TwitterUtilityService();
+    }
+
+    public void setTwitter(Twitter twitter){
+        this.twitter = twitter;
     }
 
     @GET
     @Path("/timeline/filter/{keyword}")
     @Produces("application/json")
     public Response getTimelineWithFilter(@PathParam("keyword") String keyword){
-         return twitterService.getTimelineWithFilter(keyword, this.twitter);
+         return twitterService.getTimelineWithFilterService(keyword, this.twitter);
     }
 
     @GET
