@@ -1,5 +1,6 @@
 package resources;
 
+import org.springframework.stereotype.Component;
 import services.TwitterUtilityService;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -9,6 +10,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 
+@Component
 @Path("/api/1.0/twitter")
 public class TweetUtility implements TweetUtilityI {
 
