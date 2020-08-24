@@ -5,7 +5,6 @@ const PORT_NUMBER = 9000;
 
 http.createServer((req, res)=>{
     const filePath = __dirname + '/../index.html';
-    console.log("filePath", filePath);
     fs.readFile(filePath, (err, htmlFile)=>{
         if(err){
             res.writeHead(404);

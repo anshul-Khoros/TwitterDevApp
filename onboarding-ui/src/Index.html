@@ -3,6 +3,27 @@
     <title>Hello World!</title>
 </head>
 <body>
-    <h5>Hello World!</h5>
+    <div id="twitter-app">
+        <button onclick="fetchTweets();">Fetch Tweets</button>
+
+        <div id="tweets">
+
+        </div>
+
+    </div>
+
+    <script>
+        function fetchTweets(){
+            var myRequest = new XMLHttpRequest();
+            const url = 'http://localhost:8080/api/1.0/twitter/timeline';
+            myRequest.open('GET', url);
+            myRequest.onreadystatechange = function(){
+            if (myRequest.readyState === 4) {
+                document.getElementById("tweets").innerHTML = myRequest.responseText;
+            }
+         };
+            myRequest.send();
+        }
+    </script>
 </body>
 </html>
