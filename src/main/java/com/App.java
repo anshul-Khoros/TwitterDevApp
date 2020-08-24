@@ -3,6 +3,7 @@ package com;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import resources.TweetUtility;
@@ -11,6 +12,8 @@ import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
+
+@EnableCaching
 public class App extends Service<AppConfiguration> {
     public static void main(String[] args) throws Exception {
         new App().run(args);

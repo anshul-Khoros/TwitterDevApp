@@ -1,5 +1,6 @@
 package resources;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import services.TwitterUtilityService;
 import twitter4j.Twitter;
@@ -35,7 +36,9 @@ public class TweetUtility implements TweetUtilityI {
     @GET
     @Path("/timeline")
     @Produces("application/json")
+    @Cacheable("timeline")
     public Response showTimeline() throws TwitterException {
+        System.out.println("--------------fetching from twitter----------------");
         return twitterService.getTimelineService(twitter);
     }
 
