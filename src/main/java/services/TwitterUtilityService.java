@@ -27,7 +27,10 @@ public class TwitterUtilityService {
                 TwitterPost obj = new TwitterPost();
                 User userObj = new User();
                 obj.setMessage(status.getText());
+                String url = "https://twitter.com/" + status.getUser().getScreenName() + "/status/" + status.getId();
+
                 obj.setCreatedAt(status.getCreatedAt());
+                obj.setTweetUrl(url);
 
                 userObj.setName(status.getUser().getName());
                 userObj.setProfileImageUrl(status.getUser().getProfileImageURL());

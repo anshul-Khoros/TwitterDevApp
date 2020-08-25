@@ -1,12 +1,33 @@
 <html>
 <head>
     <title>Hello World!</title>
+    <style>
+        #tweets{
+            padding:1em;
+            text-align:left;
+        }
+        #fetch-button{
+            padding:.5em;
+        }
+        .tweet{
+            padding:.25em;
+        }
+        .even-tweet{
+            background-color:#e2e2e2
+        }
+        .tweet-date{
+            padding-right:.5em;
+        }
+        .profile-img{
+            margin:.25em;
+        }
+    </style>
 </head>
 <body>
     <div id="twitter-app">
-        <button onclick="fetchTweets();">Fetch Tweets</button>
+        <button id="fetch-button" onclick="fetchTweets();">Fetch Tweets</button>
 
-        <div id="tweets">
+        <div id="tweets" >
 
         </div>
 
@@ -19,7 +40,44 @@
             myRequest.open('GET', url);
             myRequest.onreadystatechange = function(){
             if (myRequest.readyState === 4) {
-                document.getElementById("tweets").innerHTML = myRequest.responseText;
+                let allTweets = JSON.parse(myRequest.responseText);
+                let dateOptions = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+                console.log("allTweets", allTweets.length);
+                let tweetsDiv = document.getElementById("tweets");
+                for(let i=0;i<allTweets.length;i++){
+
+                }
+                allTweets.forEach((tweet, i)=>{
+                    console.log(tweet);
+                    let div = document.createElement('div');
+
+                    var img = document.createElement("img");
+                    img.setAttribute('src', tweet.user.profileImageUrl);
+                    img.setAttribute('class', 'profile-img');
+                    div.appendChild(img);
+
+                    let span = document.createElement('span');
+                    span.classList.add("tweet-date");
+                    span.textContent = new Date(tweet.createdAt).toLocaleDateString('en-US', dateOptions);
+                    div.appendChild(span);
+
+                    let anchorTag = document.createElement('a');
+                    anchorTag.target = '_blank';
+                    anchorTag.href = tweet.tweetUrl;
+                    anchorTag.textContent = tweet.message;
+                    div.appendChild(anchorTag);
+
+                    div.classList.add("tweet");
+
+                    if(i%2 == 0){
+                        div.classList.add("even-tweet");
+                    } else{
+                        div.classList.add("odd-tweet");
+                    }
+
+                    tweetsDiv.appendChild(div);
+                    console.log(tweet);
+                })
             }
          };
             myRequest.send();

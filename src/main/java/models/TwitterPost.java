@@ -6,6 +6,15 @@ public class TwitterPost {
     String message;
     User user;
     Date createdAt;
+    String tweetUrl;
+
+    public String getTweetUrl() {
+        return tweetUrl;
+    }
+
+    public void setTweetUrl(String tweetUrl) {
+        this.tweetUrl = tweetUrl;
+    }
 
     public Date getCreatedAt() {
         return createdAt;
