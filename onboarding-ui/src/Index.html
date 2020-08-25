@@ -1,31 +1,11 @@
 <html>
 <head>
     <title>Hello World!</title>
-    <style>
-        #tweets{
-            padding:1em;
-            text-align:left;
-        }
-        #fetch-button{
-            padding:.5em;
-        }
-        .tweet{
-            padding:.25em;
-        }
-        .even-tweet{
-            background-color:#e2e2e2
-        }
-        .tweet-date{
-            padding-right:.5em;
-        }
-        .profile-img{
-            margin:.25em;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
     <div id="twitter-app">
-        <button id="fetch-button" onclick="fetchTweets();">Fetch Tweets</button>
+        <h4 id="app-heading">Lab for Anshul</h4>
 
         <div id="tweets" >
 
@@ -34,14 +14,15 @@
     </div>
 
     <script>
-        function fetchTweets(){
             var myRequest = new XMLHttpRequest();
             const url = 'http://localhost:8080/api/1.0/twitter/timeline';
             myRequest.open('GET', url);
+
             myRequest.onreadystatechange = function(){
             if (myRequest.readyState === 4) {
                 let allTweets = JSON.parse(myRequest.responseText);
-                let dateOptions = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+
+                let dateOptions = { month: 'short', day: 'numeric' };
                 console.log("allTweets", allTweets.length);
                 let tweetsDiv = document.getElementById("tweets");
                 for(let i=0;i<allTweets.length;i++){
@@ -51,21 +32,36 @@
                     console.log(tweet);
                     let div = document.createElement('div');
 
+                    let imgDiv = document.createElement('div');
+                    imgDiv.classList.add("img-container");
+
                     var img = document.createElement("img");
                     img.setAttribute('src', tweet.user.profileImageUrl);
                     img.setAttribute('class', 'profile-img');
-                    div.appendChild(img);
+                    imgDiv.appendChild(img);
+
+                    let nameSpan = document.createElement('span');
+                    nameSpan.classList.add("user-name");
+                    nameSpan.textContent = tweet.user.name
+                    imgDiv.appendChild(nameSpan);
+
+                    div.appendChild(imgDiv);
+
+                    let msgDiv = document.createElement('div');
+                    msgDiv.classList.add("msg-container");
 
                     let span = document.createElement('span');
                     span.classList.add("tweet-date");
                     span.textContent = new Date(tweet.createdAt).toLocaleDateString('en-US', dateOptions);
-                    div.appendChild(span);
+                    msgDiv.appendChild(span);
 
                     let anchorTag = document.createElement('a');
                     anchorTag.target = '_blank';
                     anchorTag.href = tweet.tweetUrl;
                     anchorTag.textContent = tweet.message;
-                    div.appendChild(anchorTag);
+                    msgDiv.appendChild(anchorTag);
+
+                    div.appendChild(msgDiv);
 
                     div.classList.add("tweet");
 
@@ -81,7 +77,6 @@
             }
          };
             myRequest.send();
-        }
     </script>
 </body>
 </html>
