@@ -1,20 +1,6 @@
-<html>
-<head>
-    <title>Hello World!</title>
-    <link rel="stylesheet" href="./css/styles.css">
-</head>
-<body>
-    <div id="twitter-app">
-        <h4 id="app-heading">Lab for Anshul</h4>
+import '../scss/styles.scss';
 
-        <div id="tweets" >
-
-        </div>
-
-    </div>
-
-    <script>
-            var myRequest = new XMLHttpRequest();
+var myRequest = new XMLHttpRequest();
             const url = 'http://localhost:8080/api/1.0/twitter/timeline';
             myRequest.open('GET', url);
 
@@ -22,14 +8,12 @@
             if (myRequest.readyState === 4) {
                 let allTweets = JSON.parse(myRequest.responseText);
 
-                let dateOptions = { month: 'short', day: 'numeric' };
-                console.log("allTweets", allTweets.length);
-                let tweetsDiv = document.getElementById("tweets");
-                for(let i=0;i<allTweets.length;i++){
+                console.log("got all tweet", allTweets);
 
-                }
+                let dateOptions = { month: 'short', day: 'numeric' };
+                let tweetsDiv = document.getElementById("tweets");
+
                 allTweets.forEach((tweet, i)=>{
-                    console.log(tweet);
                     let div = document.createElement('div');
 
                     let imgDiv = document.createElement('div');
@@ -72,11 +56,7 @@
                     }
 
                     tweetsDiv.appendChild(div);
-                    console.log(tweet);
                 })
             }
          };
             myRequest.send();
-    </script>
-</body>
-</html>

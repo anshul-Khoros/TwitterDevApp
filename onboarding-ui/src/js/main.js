@@ -4,9 +4,10 @@ const path = require('path');
 
 const PORT_NUMBER = 9000;
 
-
 http.createServer((req, res)=>{
     const filePath = __dirname + '/../index.html';
+    console.log("got url ", req.url);
+    console.log("got filepath ", filePath);
     if(req.url === "/"){
     fs.readFile(filePath, (err, htmlFile)=>{
         if(err){

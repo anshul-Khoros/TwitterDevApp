@@ -3,3 +3,4 @@ TwitterApp.iml
 config.yml
 onboarding-ui/package-lock.json
 onboarding-ui/dist
+onboarding-ui/node_modules
