@@ -3,7 +3,7 @@ webpack = require("webpack");
 
 module.exports = {
     mode: "development",
-    entry: "./src/static/js/index.js",
+    entry: "./src/index.jsx",
     output: {
         filename: "bundle.js"
     },
@@ -26,6 +26,7 @@ module.exports = {
         },
         {
             test: /\.(js|jsx)$/,
+            exclude: /node_modules/,
             use: {
                 loader: 'babel-loader',
                 options: {
