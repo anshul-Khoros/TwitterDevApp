@@ -18,6 +18,7 @@ class ShowTimeline extends React.Component{
 
     fetchTweets(){
         const url = 'http://localhost:8080/api/1.0/twitter/timeline';
+        // axios api call to fetch tweets
         getTimeline()
         .then((res)=>{
            this.setState({
