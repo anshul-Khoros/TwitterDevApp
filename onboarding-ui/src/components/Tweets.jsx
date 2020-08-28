@@ -3,7 +3,9 @@ import Tweet from './Tweet.jsx';
 
 
 const Tweets = ({tweets}) => {
-    if(!tweets) return null;
+    if(!tweets || tweets.length === 0) return (
+        <p id="no-tweets">No tweets are available, post a tweet!</p>
+    );
 
     return(
         <div id="tweets">
