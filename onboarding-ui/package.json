@@ -4,8 +4,13 @@
   "description": "",
   "main": "./js/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watchAll",
     "dev": "webpack-dev-server"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./setupTests.js"
+    ]
   },
   "author": "",
   "license": "ISC",
@@ -15,12 +20,17 @@
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
     "babel-preset-react": "^6.24.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.3",
+    "jest": "^26.4.2",
+    "react-test-renderer": "^16.13.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
     "webpack-node-externals": "^2.5.2"
   },
   "dependencies": {
+    "axios": "^0.20.0",
     "css-loader": "^4.2.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

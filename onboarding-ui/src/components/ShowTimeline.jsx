@@ -1,5 +1,6 @@
 import React from 'react';
 import Tweets from './Tweets.jsx';
+import { getTimeline } from '../apis/apiRequest'
 
 
 
@@ -17,11 +18,10 @@ class ShowTimeline extends React.Component{
 
     fetchTweets(){
         const url = 'http://localhost:8080/api/1.0/twitter/timeline';
-        fetch(url)
-        .then(res=> res.json())
+        getTimeline()
         .then((res)=>{
            this.setState({
-                tweets:res
+                tweets:res.data
            })
         })
         .catch(e=>{
