@@ -52,7 +52,6 @@ $odd-row-color: #e8f5fd;
           display: flex;
           padding: 24px;
           justify-content: end;
-          border-bottom: 1px solid #48484859;
           flex-direction:row-reverse;
         }
         .tab {
@@ -60,7 +59,7 @@ $odd-row-color: #e8f5fd;
           border-radius: 25px;
           text-align: center;
           cursor: pointer;
-          padding: 12px 36px;
+          padding: 12px 24px;
           margin: 0 24px;
           font-size: 16px;
           letter-spacing: 0.5px;
@@ -78,8 +77,36 @@ $odd-row-color: #e8f5fd;
         }
 
         .tab-content {
-//           height: 400px;
-//           display: flex;
-//           align-items: center;
-//           justify-content: center;
+        }
+
+        .input,
+        .submit {
+            display: inline-block;
+            padding: .5em;
+            margin:.5em;
+            font-size: 1em;
+            border-radius: 5px;
+
+            -webkit-appearance: none;
+        }
+
+        .input {
+            border: 1px solid lightgray;
+        }
+        form{
+            padding-top:20px;
+        }
+
+        .submit {
+            background-color: #002b49;
+            color: white;
+            /**
+             * If the input field has a border,
+             * you need it here too to achieve equal heights.
+             */
+            border: 1px solid transparent;
+        }
+        .timeline-actions{
+            display:flex;
+            justify-content:space-between;
         }
