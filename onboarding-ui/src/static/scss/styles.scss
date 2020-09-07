@@ -52,7 +52,7 @@ $odd-row-color: #e8f5fd;
           display: flex;
           padding: 24px;
           justify-content: end;
-          flex-direction:row-reverse;
+          flex-direction:row;
         }
         .tab {
           padding: 12px;
@@ -109,4 +109,41 @@ $odd-row-color: #e8f5fd;
         .timeline-actions{
             display:flex;
             justify-content:space-between;
+        }
+
+        #post-tweets{
+            text-align:center;
+        }
+
+        #post-tweets-form{
+            width:25%;
+            margin:auto;
+            margin-top:4em;
+        }
+
+        .input-textarea{
+            width:100%;
+            padding:.5em;
+        }
+
+        .error-msg{
+            font-size:1em;
+            color:red;
+            font-style:italic;
+        }
+
+               .success-msg{
+                    font-size:1em;
+                    color:green;
+                    margin:1em;
+                    display:block;
+                    font-style:italic;
+                }
+
+        .post-tweet-submit{
+            padding:1em;
+            margin-top:1em;
+            background:#002b49;
+            color:#fff;
+            width:100%;
         }

@@ -1,6 +1,7 @@
 import React from 'react';
 import Tweets from './Tweets.jsx';
 import { getTimeline } from '../apis/apiRequest'
+import PostTweets from './PostTweets.jsx';
 
 
 
@@ -10,14 +11,14 @@ class ShowTimeline extends React.Component {
         this.state = {
             tweets: [],
             userTweets: [],
-            selectedTab: 'home',
+            selectedTab: 'post_tweets',
             filterText: '',
             filterClicked: false
         }
     }
 
     componentDidMount() {
-        this.fetchTweets();
+//         this.fetchTweets();
     }
 
     fetchTweets() {
@@ -46,6 +47,8 @@ class ShowTimeline extends React.Component {
                 break;
             case 'user_timeline':
                 break;
+            case 'post_tweets':
+                break;
             default:
                 return null;
         }
@@ -55,7 +58,7 @@ class ShowTimeline extends React.Component {
     }
 
     getTabs() {
-        const tabs = [{ label: "Home", value: 'home' }, { label: "User Timeline", value: 'user_timeline' }];
+        const tabs = [{ label: "Home", value: 'home' }, { label: "User Timeline", value: 'user_timeline' }, {label:'Post Tweet', value:'post_tweets'}];
         let { selectedTab } = this.state;
 
         return (tabs.map((eachTab, tabKey) => {
@@ -86,6 +89,9 @@ class ShowTimeline extends React.Component {
                 return (
                     <Tweets tweets={userTweets} />
                 )
+            case 'post_tweets':
+                return <PostTweets />
+                break;
             default:
                 return null;
         }
@@ -108,17 +114,24 @@ class ShowTimeline extends React.Component {
 
     }
 
+    getFilterForm(){
+            let { filterText, selectedTab } = this.state;
+            if( selectedTab === 'post_tweets') return <div />;
+
+        return(
+        <form onSubmit={(e) => this.handleSubmit(e)}>
+                            <input className="input" type="text" placeholder="Filter tweets" value={filterText}
+                                onChange={(e) => this.handleInputChange(e.target.value)}  />
+                            <input className="submit" type="submit" value="Apply Filter" />
+                        </form>
+        )}
+
     render() {
-        let { filterText } = this.state;
 
         return (
             <div >
                 <div className="timeline-actions">
-                <form onSubmit={(e) => this.handleSubmit(e)}>
-                    <input class="input" type="text" placeholder="Filter tweets" value={filterText}
-                        onChange={(e) => this.handleInputChange(e.target.value)}  />
-                    <input class="submit" type="submit" value="Apply Filter" />
-                </form>
+                    {this.getFilterForm()}
                 <div className="tab-container">
                     {this.getTabs()}
                 </div>
