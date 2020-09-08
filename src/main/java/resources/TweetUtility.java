@@ -1,5 +1,6 @@
 package resources;
 
+import io.dropwizard.jersey.caching.CacheControl;
 import org.springframework.stereotype.Component;
 import services.TwitterUtilityService;
 import twitter4j.Twitter;
@@ -8,6 +9,7 @@ import twitter4j.TwitterStream;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.util.concurrent.TimeUnit;
 
 
 @Component
@@ -35,6 +37,7 @@ public class TweetUtility implements TweetUtilityI {
     @GET
     @Path("/timeline")
     @Produces("application/json")
+    @CacheControl(maxAge = 6, maxAgeUnit = TimeUnit.HOURS)
     public Response showTimeline() throws TwitterException {
         return twitterService.getTimelineService(twitter);
     }
